@@ -1,1 +1,1 @@
-# terraform-tales-cluster
+# terraform-talos-cluster

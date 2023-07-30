@@ -1,0 +1,69 @@
+---
+# vim:filetype=yaml
+#
+# This is a minimal Cilium Configuration in order to bootstrap the cluster CNI.
+# GitOps will overwrite this configuration once it has taken operational control of the cluster.
+#
+# -- roll out cilium agent pods automatically when configmap is updated.
+rollOutCiliumPods: true
+
+# -- configure the kube-proxy replacement in Cilium BPF datapath
+kubeProxyReplacement: strict
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+k8sServiceHost: ${k8s_service_host}
+k8sServicePort: ${k8s_service_port}
+
+# -- requireIPv4PodCIDR enables waiting for Kubernetes to provide the PodCIDR
+k8s:
+  requireIPv4PodCIDR: true
+
+# -- configure Native-Routing
+tunnel: disabled
+ipv4NativeRoutingCIDR: ${pod_subnet}
+autoDirectNodeRoutes: true
+
+# -- configure security context that is compatible with talos
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+# -- configure IPAM from kubernetes configuration
+ipam:
+  mode: kubernetes
+
+# -- enable Local Redirect feature
+localRedirectPolicy: true
+
+# -- enable native eBPF masquerading
+bpf:
+  masquerade: true
+
+operator:
+  replicas: 1
+  rollOutPods: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  extraArgs:
+  - --leader-election-lease-duration=50s
+  - --leader-election-renew-deadline=40s
