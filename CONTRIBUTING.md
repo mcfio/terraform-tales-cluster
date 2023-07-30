@@ -4,13 +4,14 @@
 
 This project uses [Semantic Versioning](https://semver.org). Commit messages to
 automatically determine the version bumps, so they should adhere to the conventions 
-of [Conventional Commits (v1.0.0-beta.2)](https://www.conventionalcommits.org/en/v1.0.0-beta.2/).
+of [Conventional Commits (v1.0.0-beta.4)](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
 
 ### TL;DR
 
 - Commit messages starting with `fix: ` trigger a patch version bump
 - Commit messages starting with `feat: ` trigger a minor version bump
 - Commit messages starting with `BREAKING CHANGE: ` trigger a major version bump.
+- Others: commit types other than fix: and feat: are allowed, for example chore:, docs:, style:, refactor:, perf:, test:, and others.
 
 ## Automatic versioning
 
