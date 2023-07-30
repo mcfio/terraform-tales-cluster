@@ -2,16 +2,9 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      dryRun:
-        description: Dry-Run
-        default: false
-        required: false
-        type: boolean
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -21,7 +14,6 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-      # id-token: write
     name: release
     runs-on: ubuntu-latest
     steps:
@@ -29,4 +21,3 @@ jobs:
       - run: npx semantic-release@21.0.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
