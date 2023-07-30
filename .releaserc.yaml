@@ -4,7 +4,7 @@ verifyConditions:
 prepare: false
 publish:
   - "@semantic-release/github"
+ci: false
 success: false
 fail: false
 npmPublish: false
-# extends: "semantic-release-npm-github-publish"
