@@ -1,0 +1,10 @@
+branch: main
+verifyConditions:
+  - "@semantic-release/github"
+prepare: false
+publish:
+  - "@semantic-release/github"
+success: false
+fail: false
+npmPublish: false
+# extends: "semantic-release-npm-github-publish"
